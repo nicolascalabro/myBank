@@ -1,5 +1,14 @@
 {% extends "base_template.html" %}
 {% load static %}
 {% block contenidoCambiante %}
-<h1>Cuentas</h1>
+<h1>Agregar Cuentas</h1>
+<br>
+<form action="{% url 'cuentas' %}" method="post">{% csrf_token %}
+    <p>Titular: <input type="text" name="titular_cuenta" placeholder="Ingrese titular" required></p>
+    <p>Nro. Cuenta: <input type="number" name="numero_cuenta" placeholder="Ingrese num. cuenta" required></p>
+    <p>Fecha: <input type= "date" name="fecha_cuenta" placeholder="Ingrese fecha de creacion" required></p>
+    <p>Estado: <input type= "checkbox" name="estado_cuenta"></p>
+    <p>Saldo: <input type="number" name="saldo_cuenta" placeholder="Ingrese saldo inicial" required></p>
+    <input type="submit" value="Agregar">
+</form>
 {% endblock %}

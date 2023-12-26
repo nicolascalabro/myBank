@@ -1,10 +1,9 @@
 from django.db import models
 
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=30)
+    nombre = models.CharField(max_length=20)
     apellido = models.CharField(max_length=20)
     dni = models.IntegerField()
-    telefono = models.IntegerField()
     email = models.EmailField()
 
     class Meta:
@@ -15,10 +14,10 @@ class Cliente(models.Model):
         return f"Nombre: {self.nombre} - Apellido: {self.apellido}"
     
 class Cuenta(models.Model):
-    titular = models.CharField(max_length=50)
+    titular = models.CharField(max_length=40)
     numero = models.IntegerField()
     fechaCreacion = models.DateField()
-    estado = models.BooleanField()
+    estado = models.BooleanField(default=True)
     saldo = models.IntegerField()
 
     class Meta:
@@ -28,13 +27,14 @@ class Cuenta(models.Model):
     def __str__(self):
         return f"Nro de cuenta: {self.numero} - Titular: {self.titular} - Estado: {self.estado}"    
 
-class Sucursal(models.Model):
-    numero = models.IntegerField()
-    direccion = models.CharField(max_length=70)
+class Nomina(models.Model):
+    nombre = models.CharField(max_length=20)
+    apellido = models.CharField(max_length=20)
+    puesto = models.CharField(max_length=20)
 
     class Meta:
-        verbose_name_plural = "Sucursales"
-        ordering = ["numero"]
+        verbose_name_plural = "Nomina"
+        ordering = ["apellido"]
 
     def __str__(self):
-        return f"Numero de sucursal: {self.numero} - Direccion: {self.direccion}"
+        return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Puesto: {self.puesto}"

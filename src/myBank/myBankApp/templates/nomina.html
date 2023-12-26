@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% block contenidoCambiante %}
+<h1>Agregar empleados a la Nomina</h1>
+<br>
+<form action="{% url 'nomina' %}" method="post">{% csrf_token %}
+    <p>Nombre: <input type="text" name="nombre_empleado" placeholder="Ingrese nombre" required></p>
+    <p>Apellido: <input type="text" name="apellido_empleado" placeholder="Ingrese apellido" required></p>
+    <p>Puesto: <input type="text" name="puesto_empleado" placeholder="Ingrese puesto"></p>
+    <input type="submit" value="Agregar">
+</form>
+{% endblock %}
