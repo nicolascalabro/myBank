@@ -1,0 +1,20 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% block contenidoCambiante %}
+<h1>Buscar Cuenta</h1>
+<br>
+<form action="{% url 'buscar_cuenta' %}" method="get">
+    <p>Nro. Cuenta: <input type="number" name="numero_cuenta" placeholder="Ingrese num. cuenta" required></p>    
+    <input type="submit" value="Buscar">
+</form>
+
+{%if cuenta %}
+    <ul>
+        {% for cuenta in cuenta %}
+            <li>Nro Cuenta: {{ cuenta.numero }} - Titular: {{ cuenta.titular }} - Estado: {{ cuenta.estado }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay resultados</p>    
+{% endif %}
+{% endblock %}

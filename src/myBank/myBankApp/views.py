@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from myBankApp.models import Cliente, Cuenta, Nomina
-#from django.http import HttpResponse
+from django.http import HttpResponse
 
 def index(request):
     return render(request, "index.html")
@@ -39,3 +39,10 @@ def nomina(request):
         empleado = Nomina(nombre=nombre_empleado, apellido=apellido_empleado, puesto=puesto_empleado)
         empleado.save()
     return render(request, "nomina.html")
+
+def buscar_cuenta(request):
+    cuenta = []
+    if "numero_cuenta" in request.GET:
+        numero = request.GET.get("numero_cuenta")
+        cuenta = Cuenta.objects.filter(numero__icontains = numero)   
+    return render(request, "buscar_cuenta.html", {"cuenta": cuenta})      
