@@ -18,6 +18,7 @@ Si se desea visualizar la base de datos, podemos ingresar al panel de usuarios d
 
 Próximas features:
 - Nuevas búsquedas en la base de datos.
+- Utilización del moódulo forms de Django.
 - Upgrade del frontend.
 
 ``
