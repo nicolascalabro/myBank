@@ -13,8 +13,8 @@ La app cuenta con cinco vistas que poseen las siguientes funciones.
 
 Si se desea visualizar la base de datos, podemos ingresar al panel de usuarios de Django "/admin" con el siguiente superuser:
 
-- user: admin
-- password: calabro1234
+- User: admin
+- Password: calabro1234
 
 Próximas features:
 - Nuevas búsquedas en la base de datos.
