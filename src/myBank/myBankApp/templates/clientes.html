@@ -1,13 +1,14 @@
 {% extends "base_template.html" %}
 {% load static %}
 {% block contenidoCambiante %}
+
 <h1>Alta de Clientes</h1>
 <br>
 <form action="{% url 'clientes' %}" method="post">{% csrf_token %}
-    <p>Nombre: <input type="text" name="nombre_cliente" placeholder="Ingrese nombre" required></p>
-    <p>Apellido: <input type="text" name="apellido_cliente" placeholder="Ingrese apellido" required></p>
-    <p>DNI: <input type= "number" name="dni_cliente" placeholder="Ingrese DNI" required></p>
-    <p>Email: <input type="email" name="email_cliente" placeholder="Ingrese email"></p>
-    <input type="submit" value="Enviar">
+    <table>
+        {{clienteFormulario.as_table}}
+    </table>
+    <input type="submit" value="Agregar">
 </form>
+
 {% endblock %}
