@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leer Clientes</title>
+</head>
+<body>
+    <h3>Leer Clientes</h3>
+    
+    {% for c in key_clientes %}
+    <li>{{c}}</li>
+    {% endfor %}
+
+    <a href="../clientes">Agregar cliente</a>
+</body>
+</html>

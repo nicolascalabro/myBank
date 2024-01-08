@@ -1,8 +1,8 @@
 from django.db import models
 
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=20)
-    apellido = models.CharField(max_length=20)
+    nombre = models.CharField(max_length=30)
+    apellido = models.CharField(max_length=30)
     dni = models.IntegerField()
     email = models.EmailField()
 
@@ -28,9 +28,9 @@ class Cuenta(models.Model):
         return f"Nro de cuenta: {self.numero} - Titular: {self.titular} - Estado: {self.estado}"    
 
 class Nomina(models.Model):
-    nombre = models.CharField(max_length=20)
-    apellido = models.CharField(max_length=20)
-    puesto = models.CharField(max_length=20)
+    nombre = models.CharField(max_length=30)
+    apellido = models.CharField(max_length=30)
+    puesto = models.CharField(max_length=30)
 
     class Meta:
         verbose_name_plural = "Nomina"

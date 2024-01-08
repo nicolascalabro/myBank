@@ -1,44 +1,68 @@
 from django.shortcuts import render
 from myBankApp.models import Cliente, Cuenta, Nomina
 from django.http import HttpResponse
+from myBankApp.forms import ClienteFormulario, CuentaFormulario, NominaFormulario
 
 def index(request):
     return render(request, "index.html")
 
 def clientes(request):
-    if request.method == "POST":
-        nombre_cliente = request.POST.get("nombre_cliente")
-        apellido_cliente = request.POST.get("apellido_cliente")
-        dni_cliente = request.POST.get("dni_cliente")
-        email_cliente = request.POST.get("email_cliente")
-       
-        cliente = Cliente(nombre=nombre_cliente, apellido=apellido_cliente, dni=dni_cliente, email=email_cliente)
-        cliente.save()
 
-    return render(request, "clientes.html")
+    if request.method == "POST":
+        clienteFormulario = ClienteFormulario(request.POST)
+        #print(clienteFormulario)
+        if clienteFormulario.is_valid():
+            data = clienteFormulario.cleaned_data
+
+            nombre_cliente = data.get("nombre")
+            apellido_cliente = data.get("apellido")
+            dni_cliente = data.get("dni")
+            email_cliente = data.get("email")
+
+            cliente = Cliente(nombre=nombre_cliente, apellido=apellido_cliente, dni=dni_cliente, email=email_cliente)
+            cliente.save()
+            return render(request, "index.html")
+    else:
+        clienteFormulario = ClienteFormulario() 
+    return render(request, "clientes.html", {"clienteFormulario": clienteFormulario})
 
 def cuentas(request):
     if request.method == "POST":
-        titular_cuenta = request.POST.get("titular_cuenta")
-        numero_cuenta = request.POST.get("numero_cuenta")
-        fecha_cuenta = request.POST.get("fecha_cuenta")
-        estado_cuenta = request.POST.get("estado_cuenta") == "on"  #En HTML, el checkbox actuivado es enviado como "on" en el formulario. 
-        saldo_cuenta = request.POST.get("saldo_cuenta")
-              
-        cuenta = Cuenta(titular=titular_cuenta, numero=numero_cuenta, fechaCreacion=fecha_cuenta, estado=estado_cuenta, saldo=saldo_cuenta)
-        cuenta.save()
+        cuentaFormulario = CuentaFormulario(request.POST)
+        #print(cuentaFormulario)
+        if cuentaFormulario.is_valid():
+            data = cuentaFormulario.cleaned_data
 
-    return render(request, "cuentas.html")
+            titular_cuenta  = data.get("titular")
+            numero_cuenta  = data.get("numero")
+            fecha_cuenta  = data.get("fechaCreacion")
+            estado_cuenta  = data.get("estado")
+            saldo_cuenta  = data.get("saldo")
+           
+            cuenta = Cuenta(titular=titular_cuenta, numero=numero_cuenta, fechaCreacion=fecha_cuenta, estado=estado_cuenta, saldo=saldo_cuenta)
+            cuenta.save()
+            return render(request, "index.html")       
+    else:
+        cuentaFormulario = CuentaFormulario()
+    return render(request, "cuentas.html", {"cuentaFormulario": cuentaFormulario})
 
 def nomina(request):
     if request.method == "POST":
-        nombre_empleado = request.POST.get("nombre_empleado")
-        apellido_empleado = request.POST.get("apellido_empleado")
-        puesto_empleado = request.POST.get("puesto_empleado")
-      
-        empleado = Nomina(nombre=nombre_empleado, apellido=apellido_empleado, puesto=puesto_empleado)
-        empleado.save()
-    return render(request, "nomina.html")
+        nominaFormulario = NominaFormulario(request.POST)
+        #print(nominaFormulario)
+        if nominaFormulario.is_valid():
+            data = nominaFormulario.cleaned_data
+
+            nombre_empleado = data.get("nombre")
+            apellido_empleado = data.get("apellido")
+            puesto_empleado = data.get("puesto")
+            
+            empleado = Nomina(nombre=nombre_empleado, apellido=apellido_empleado, puesto=puesto_empleado)
+            empleado.save()
+            return render(request, "index.html")
+    else:
+        nominaFormulario = NominaFormulario()    
+    return render(request, "nomina.html", {"nominaFormulario": nominaFormulario})
 
 def buscar_cuenta(request):
     cuenta = []
@@ -46,3 +70,11 @@ def buscar_cuenta(request):
         numero = request.GET.get("numero_cuenta")
         cuenta = Cuenta.objects.filter(numero__icontains = numero)   
     return render(request, "buscar_cuenta.html", {"cuenta": cuenta})      
+
+
+def leer_clientes(request):
+    clientes = Cliente.objects.all()
+    contexto = {
+        "key_clientes": clientes,
+    }
+    return render(request, "leer_clientes.html", contexto)
