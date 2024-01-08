@@ -1,7 +1,12 @@
 from django.shortcuts import render
 from myBankApp.models import Cliente, Cuenta, Nomina
 from django.http import HttpResponse
+
 from myBankApp.forms import ClienteFormulario, CuentaFormulario, NominaFormulario
+
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 def index(request):
     return render(request, "index.html")
@@ -88,3 +93,35 @@ def eliminar_cliente(request, nombre_cliente):
         "key_clientes": clientes,
     }
     return render(request, "leer_clientes.html", contexto)
+
+#Vistas basadas en clases para el modelo Nomina
+class NominaList(ListView):
+    #model: Nomina
+    queryset = Nomina.objects.all()
+    template_name = "nomina_listar.html"
+
+class NominaDetail(DetailView):
+    #model: Nomina
+    queryset = Nomina.objects.all()
+    template_name = "nomina_ver_detalle.html"
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        n = Nomina.objects.filter(pk=pk)
+        print(n)
+        return n
+
+class NominaCreate(CreateView):
+    model: Nomina
+    fields = ["nombre", "apellido", "puesto"]
+    template_name = "nomina_crear.html"  
+    success_url = "myBankApp/nomina/listar"
+
+class NominaUpdate(UpdateView):
+    model: Nomina
+    fields = ["nombre", "apellido", "puesto"]
+    template_name = "nomina_crear.html" 
+    success_url = "myBankApp/nomina/listar" 
+
+class NominaDelete(DeleteView):
+    model: Nomina
+    template_name = "nomina_eliminar.html"  
