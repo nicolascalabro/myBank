@@ -78,3 +78,13 @@ def leer_clientes(request):
         "key_clientes": clientes,
     }
     return render(request, "leer_clientes.html", contexto)
+
+def eliminar_cliente(request, nombre_cliente):
+    cliente = Cliente.objects.get(nombre = nombre_cliente)
+    cliente.delete()
+
+    clientes = Cliente.objects.all()
+    contexto = {
+        "key_clientes": clientes,
+    }
+    return render(request, "leer_clientes.html", contexto)
