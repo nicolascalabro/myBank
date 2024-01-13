@@ -25,6 +25,7 @@
                 <a class="navbar-brand" href= "{% url 'cuentas' %}">Cuentas</a>
                 <a class="navbar-brand" href= "{% url 'nomina' %}">Nomina</a>
                 <a class="navbar-brand" href= "{% url 'buscar_cuenta' %}">Buscar Cuenta</a>
+                <a class="navbar-brand" href= "{% url 'listar_clientes' %}">Listar Clientes</a>
             <!--<a class="btn btn-primary" href="#signup">Iniciar Sesion</a>-->
             </div>
         </nav>
@@ -42,7 +43,7 @@
             </div>
         </header>
 
-        <!-- Parte dinamica segun la vista-->
+        <!-- Sector dinamico segun la vista-->
         {% block contenidoCambiante %}
         {% endblock %}
 

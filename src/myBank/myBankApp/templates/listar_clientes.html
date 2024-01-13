@@ -1,0 +1,16 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% block contenidoCambiante %}
+
+<h1>Lista de clientes</h1>
+<br>    
+{% for c in key_clientes %}
+    <li>{{c}}</li>
+        <button>
+            <a href="{% url 'eliminar_cliente' c.apellido %}">Eliminar cliente</a>
+        </button>    
+{% endfor %}
+<br>
+<a href="../clientes">Agregar nuevo cliente</a>
+    
+{% endblock %}

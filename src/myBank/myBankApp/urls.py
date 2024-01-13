@@ -5,13 +5,9 @@ from myBankApp.views import (
     cuentas, 
     nomina, 
     buscar_cuenta, 
-    leer_clientes, 
+    listar_clientes, 
     eliminar_cliente, 
-    NominaList, 
-    NominaDetail, 
-    NominaCreate, 
-    NominaUpdate, 
-    NominaDelete)
+ )
 
 urlpatterns = [
     path("", index, name = "index"),
@@ -19,8 +15,6 @@ urlpatterns = [
     path("cuentas/", cuentas, name = "cuentas"),
     path("nomina/", nomina, name = "nomina"),
     path("buscar/", buscar_cuenta, name = "buscar_cuenta"),
-    path("leer_clientes/", leer_clientes, name = "leer_clientes"),
-    path("eliminar_cliente/<nombre_cliente>", eliminar_cliente, name = "eliminar_cliente"),
-    path("nomina/listar", NominaList.as_view(), name = "listar_nomina"),
-    path("nomina/ver_detalle/<int:pk>", NominaDetail.as_view(), name = "ver_detalle_nomina"),
+    path("listar_clientes/", listar_clientes, name = "listar_clientes"),
+    path("eliminar_cliente/<cliente_apellido>", eliminar_cliente, name = "eliminar_cliente"),
 ]

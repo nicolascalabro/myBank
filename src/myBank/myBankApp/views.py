@@ -15,7 +15,6 @@ def clientes(request):
 
     if request.method == "POST":
         clienteFormulario = ClienteFormulario(request.POST)
-        #print(clienteFormulario)
         if clienteFormulario.is_valid():
             data = clienteFormulario.cleaned_data
 
@@ -34,7 +33,6 @@ def clientes(request):
 def cuentas(request):
     if request.method == "POST":
         cuentaFormulario = CuentaFormulario(request.POST)
-        #print(cuentaFormulario)
         if cuentaFormulario.is_valid():
             data = cuentaFormulario.cleaned_data
 
@@ -54,7 +52,6 @@ def cuentas(request):
 def nomina(request):
     if request.method == "POST":
         nominaFormulario = NominaFormulario(request.POST)
-        #print(nominaFormulario)
         if nominaFormulario.is_valid():
             data = nominaFormulario.cleaned_data
 
@@ -77,51 +74,20 @@ def buscar_cuenta(request):
     return render(request, "buscar_cuenta.html", {"cuenta": cuenta})      
 
 
-def leer_clientes(request):
+def listar_clientes(request):
     clientes = Cliente.objects.all()
+    print(clientes)
     contexto = {
         "key_clientes": clientes,
     }
-    return render(request, "leer_clientes.html", contexto)
+    return render(request, "listar_clientes.html", contexto)
 
-def eliminar_cliente(request, nombre_cliente):
-    cliente = Cliente.objects.get(nombre = nombre_cliente)
+def eliminar_cliente(request, cliente_apellido):
+    cliente = Cliente.objects.get(apellido = cliente_apellido)
     cliente.delete()
 
     clientes = Cliente.objects.all()
     contexto = {
         "key_clientes": clientes,
     }
-    return render(request, "leer_clientes.html", contexto)
-
-#Vistas basadas en clases para el modelo Nomina
-class NominaList(ListView):
-    #model: Nomina
-    queryset = Nomina.objects.all()
-    template_name = "nomina_listar.html"
-
-class NominaDetail(DetailView):
-    #model: Nomina
-    queryset = Nomina.objects.all()
-    template_name = "nomina_ver_detalle.html"
-    def get_queryset(self):
-        pk = self.kwargs.get('pk')
-        n = Nomina.objects.filter(pk=pk)
-        print(n)
-        return n
-
-class NominaCreate(CreateView):
-    model: Nomina
-    fields = ["nombre", "apellido", "puesto"]
-    template_name = "nomina_crear.html"  
-    success_url = "myBankApp/nomina/listar"
-
-class NominaUpdate(UpdateView):
-    model: Nomina
-    fields = ["nombre", "apellido", "puesto"]
-    template_name = "nomina_crear.html" 
-    success_url = "myBankApp/nomina/listar" 
-
-class NominaDelete(DeleteView):
-    model: Nomina
-    template_name = "nomina_eliminar.html"  
+    return render(request, "listar_clientes.html", contexto) 
