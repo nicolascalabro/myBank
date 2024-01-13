@@ -73,10 +73,9 @@ def buscar_cuenta(request):
         cuenta = Cuenta.objects.filter(numero__icontains = numero)   
     return render(request, "buscar_cuenta.html", {"cuenta": cuenta})      
 
-
+#-------------------CRUD-------------------
 def listar_clientes(request):
     clientes = Cliente.objects.all()
-    print(clientes)
     contexto = {
         "key_clientes": clientes,
     }
@@ -90,4 +89,28 @@ def eliminar_cliente(request, cliente_apellido):
     contexto = {
         "key_clientes": clientes,
     }
-    return render(request, "listar_clientes.html", contexto) 
+    return render(request, "listar_clientes.html", contexto)
+
+def editar_cliente(request, cliente_apellido):
+    cliente = Cliente.objects.get(apellido = cliente_apellido)
+
+    if request.method == "POST":
+        clienteFormulario = ClienteFormulario(request.POST)
+        if clienteFormulario.is_valid():
+            data = clienteFormulario.cleaned_data
+
+            cliente.nombre = data.get("nombre")
+            cliente.apellido = data.get("apellido")
+            cliente.dni = data.get("dni")
+            cliente.email = data.get("email")
+
+            cliente.save()
+            return render(request, "index.html")
+
+    clienteFormulario = ClienteFormulario(initial = {
+        "nombre": cliente.nombre, 
+        "apellido": cliente.apellido,
+        "dni": cliente.dni,
+        "email": cliente.email
+        }) 
+    return render(request, "editar_cliente.html", {"clienteFormulario": clienteFormulario, "cliente_apellido": cliente.apellido})

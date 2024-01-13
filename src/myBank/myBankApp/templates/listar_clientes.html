@@ -7,7 +7,10 @@
 {% for c in key_clientes %}
     <li>{{c}}</li>
         <button>
-            <a href="{% url 'eliminar_cliente' c.apellido %}">Eliminar cliente</a>
+            <a href="{% url 'eliminar_cliente' c.apellido %}">Eliminar</a>
+        </button>
+        <button>
+            <a href="{% url 'editar_cliente' c.apellido %}">Editar</a>
         </button>    
 {% endfor %}
 <br>

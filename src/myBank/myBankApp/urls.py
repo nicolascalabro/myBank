@@ -6,7 +6,8 @@ from myBankApp.views import (
     nomina, 
     buscar_cuenta, 
     listar_clientes, 
-    eliminar_cliente, 
+    eliminar_cliente,
+    editar_cliente, 
  )
 
 urlpatterns = [
@@ -17,4 +18,5 @@ urlpatterns = [
     path("buscar/", buscar_cuenta, name = "buscar_cuenta"),
     path("listar_clientes/", listar_clientes, name = "listar_clientes"),
     path("eliminar_cliente/<cliente_apellido>", eliminar_cliente, name = "eliminar_cliente"),
+    path("editar_cliente/<cliente_apellido>", editar_cliente, name = "editar_cliente"),
 ]

@@ -1,0 +1,14 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% block contenidoCambiante %}
+
+<h1>Editar Cliente</h1>
+<br>
+<form action="{% url 'editar_cliente' cliente_apellido%}" method="post">{% csrf_token %}
+    <table>
+        {{clienteFormulario.as_table}}
+    </table>
+    <input type="submit" value="Aceptar">
+</form>
+
+{% endblock %}
