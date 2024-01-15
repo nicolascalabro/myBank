@@ -6,7 +6,7 @@
 <br>
 <form action="{% url 'registrar' %}" method="post">{% csrf_token %}
     <table>
-        {{userCreationForm.as_table}}
+        {{userRegFormulario.as_table}}
     </table>
     <input type="submit" value="Aceptar">
 </form>

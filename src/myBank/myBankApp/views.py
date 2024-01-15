@@ -2,9 +2,9 @@ from django.shortcuts import render
 from myBankApp.models import Cliente, Cuenta, Nomina
 from django.http import HttpResponse
 
-from myBankApp.forms import ClienteFormulario, CuentaFormulario, NominaFormulario
+from myBankApp.forms import ClienteFormulario, CuentaFormulario, NominaFormulario, UserRegFormulario
 
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
@@ -30,6 +30,7 @@ def clientes(request):
         clienteFormulario = ClienteFormulario() 
     return render(request, "clientes.html", {"clienteFormulario": clienteFormulario})
 
+@login_required
 def cuentas(request):
     if request.method == "POST":
         cuentaFormulario = CuentaFormulario(request.POST)
@@ -49,6 +50,7 @@ def cuentas(request):
         cuentaFormulario = CuentaFormulario()
     return render(request, "cuentas.html", {"cuentaFormulario": cuentaFormulario})
 
+@login_required
 def nomina(request):
     if request.method == "POST":
         nominaFormulario = NominaFormulario(request.POST)
@@ -66,6 +68,7 @@ def nomina(request):
         nominaFormulario = NominaFormulario()    
     return render(request, "nomina.html", {"nominaFormulario": nominaFormulario})
 
+@login_required
 def buscar_cuenta(request):
     cuenta = []
     if "numero_cuenta" in request.GET:
@@ -74,6 +77,7 @@ def buscar_cuenta(request):
     return render(request, "buscar_cuenta.html", {"cuenta": cuenta})      
 
 #-------------------CRUD-------------------
+@login_required
 def listar_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, "listar_clientes.html", {"clientes": clientes})
@@ -133,14 +137,14 @@ def login_request(request):
 
 def registrar(request):
     if request.method == "POST":
-        userCreationForm = UserCreationForm(request.POST)
-        if userCreationForm.is_valid():
-            data = userCreationForm.cleaned_data
+        userRegFormulario = UserRegFormulario(request.POST)
+        if userRegFormulario.is_valid():
+            data = userRegFormulario.cleaned_data
 
             usuario = data.get("username")
 
-            userCreationForm.save()
+            userRegFormulario.save()
             return render(request, "index.html", {"mensaje": f"Se ha creado el usuario {usuario}"})
     else:
-        userCreationForm = UserCreationForm() 
-    return render(request, "registrar.html", {"userCreationForm": userCreationForm})
+        userRegFormulario = UserRegFormulario() 
+    return render(request, "registrar.html", {"userRegFormulario": userRegFormulario})
