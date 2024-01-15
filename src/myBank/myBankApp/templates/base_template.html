@@ -26,7 +26,17 @@
                 <a class="navbar-brand" href= "{% url 'nomina' %}">Nomina</a>
                 <a class="navbar-brand" href= "{% url 'buscar_cuenta' %}">Buscar Cuenta</a>
                 <a class="navbar-brand" href= "{% url 'listar_clientes' %}">Listar Clientes</a>
-            <!--<a class="btn btn-primary" href="#signup">Iniciar Sesion</a>-->
+
+                {% if request.user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post">{% csrf_token %}
+                    <button class="btn btn-primary" href="{% url 'logout' %}">Cerrar Sesion</button>
+                </form>
+                <p>Usuario: {{request.user}}</p>
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'login' %}">Iniciar Sesion</a>
+                <a class="btn btn-primary" href="{% url 'registrar' %}">Registrarse</a>
+                {% endif %}
+
             </div>
         </nav>
         <!-- Masthead-->

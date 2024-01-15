@@ -4,7 +4,7 @@
 
 <h1>Lista de clientes</h1>
 <br>    
-{% for c in key_clientes %}
+{% for c in clientes %}
     <li>{{c}}</li>
         <button>
             <a href="{% url 'eliminar_cliente' c.apellido %}">Eliminar</a>

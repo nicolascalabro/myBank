@@ -1,4 +1,6 @@
 from django.urls import path
+from django.contrib.auth.views import LogoutView
+
 from myBankApp.views import (
     index, 
     clientes,
@@ -7,7 +9,9 @@ from myBankApp.views import (
     buscar_cuenta, 
     listar_clientes, 
     eliminar_cliente,
-    editar_cliente, 
+    editar_cliente,
+    login_request,
+    registrar,
  )
 
 urlpatterns = [
@@ -19,4 +23,7 @@ urlpatterns = [
     path("listar_clientes/", listar_clientes, name = "listar_clientes"),
     path("eliminar_cliente/<cliente_apellido>", eliminar_cliente, name = "eliminar_cliente"),
     path("editar_cliente/<cliente_apellido>", editar_cliente, name = "editar_cliente"),
+    path("login/", login_request, name = "login"),
+    path("registrar/", registrar, name = "registrar"),
+    path("logout/", LogoutView.as_view(template_name = "index.html"), name = "logout"),
 ]

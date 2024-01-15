@@ -4,15 +4,15 @@ from django.http import HttpResponse
 
 from myBankApp.forms import ClienteFormulario, CuentaFormulario, NominaFormulario
 
-from django.views.generic import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, "index.html")
 
+@login_required
 def clientes(request):
-
     if request.method == "POST":
         clienteFormulario = ClienteFormulario(request.POST)
         if clienteFormulario.is_valid():
@@ -76,20 +76,14 @@ def buscar_cuenta(request):
 #-------------------CRUD-------------------
 def listar_clientes(request):
     clientes = Cliente.objects.all()
-    contexto = {
-        "key_clientes": clientes,
-    }
-    return render(request, "listar_clientes.html", contexto)
+    return render(request, "listar_clientes.html", {"clientes": clientes})
 
 def eliminar_cliente(request, cliente_apellido):
     cliente = Cliente.objects.get(apellido = cliente_apellido)
     cliente.delete()
 
     clientes = Cliente.objects.all()
-    contexto = {
-        "key_clientes": clientes,
-    }
-    return render(request, "listar_clientes.html", contexto)
+    return render(request, "listar_clientes.html", {"clientes": clientes})
 
 def editar_cliente(request, cliente_apellido):
     cliente = Cliente.objects.get(apellido = cliente_apellido)
@@ -114,3 +108,39 @@ def editar_cliente(request, cliente_apellido):
         "email": cliente.email
         }) 
     return render(request, "editar_cliente.html", {"clienteFormulario": clienteFormulario, "cliente_apellido": cliente.apellido})
+
+#-------------------Manejo de usuarios-------------------
+def login_request(request):
+    if request.method == "POST":
+        authenticationForm = AuthenticationForm(request, data = request.POST)
+        if authenticationForm.is_valid():
+            data = authenticationForm.cleaned_data
+
+            usuario = data.get("username")
+            contraseña = data.get("password")
+        
+            user = authenticate(username = usuario, password = contraseña)
+            if user is not None:
+                login(request, user)
+                return render(request, "index.html", {"mensaje": f"Bienvenido {usuario}"})
+            else:
+                return render(request, "index.html", {"mensaje": f"Usuario o contraseña invalidos"})
+        else:
+            return render(request, "index.html", {"mensaje": "Datos incorrectos"})    
+    else:
+        authenticationForm = AuthenticationForm() 
+    return render(request, "login.html", {"authenticationForm": authenticationForm})
+
+def registrar(request):
+    if request.method == "POST":
+        userCreationForm = UserCreationForm(request.POST)
+        if userCreationForm.is_valid():
+            data = userCreationForm.cleaned_data
+
+            usuario = data.get("username")
+
+            userCreationForm.save()
+            return render(request, "index.html", {"mensaje": f"Se ha creado el usuario {usuario}"})
+    else:
+        userCreationForm = UserCreationForm() 
+    return render(request, "registrar.html", {"userCreationForm": userCreationForm})

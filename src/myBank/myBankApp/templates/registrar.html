@@ -1,0 +1,14 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% block contenidoCambiante %}
+
+<h1>Registrar usuario</h1>
+<br>
+<form action="{% url 'registrar' %}" method="post">{% csrf_token %}
+    <table>
+        {{userCreationForm.as_table}}
+    </table>
+    <input type="submit" value="Aceptar">
+</form>
+
+{% endblock %}
