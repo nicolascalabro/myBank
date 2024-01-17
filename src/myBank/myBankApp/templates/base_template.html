@@ -31,7 +31,8 @@
                 <form action="{% url 'logout' %}" method="post">{% csrf_token %}
                     <button class="btn btn-primary" href="{% url 'logout' %}">Cerrar Sesion</button>
                 </form>
-                <p>Usuario: {{request.user}}</p>
+                <h6>Usuario: {{request.user}}</h6>
+                <a href="{% url 'editar_usuario' %}">Editar usuario</a>
                 {% else %}
                 <a class="btn btn-primary" href="{% url 'login' %}">Iniciar Sesion</a>
                 <a class="btn btn-primary" href="{% url 'registrar' %}">Registrarse</a>

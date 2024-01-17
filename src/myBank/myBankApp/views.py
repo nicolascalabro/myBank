@@ -2,7 +2,7 @@ from django.shortcuts import render
 from myBankApp.models import Cliente, Cuenta, Nomina
 from django.http import HttpResponse
 
-from myBankApp.forms import ClienteFormulario, CuentaFormulario, NominaFormulario, UserRegFormulario
+from myBankApp.forms import ClienteFormulario, CuentaFormulario, NominaFormulario, UserRegFormulario, UserEditFormulario
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
@@ -148,3 +148,27 @@ def registrar(request):
     else:
         userRegFormulario = UserRegFormulario() 
     return render(request, "registrar.html", {"userRegFormulario": userRegFormulario})
+
+@login_required
+def editar_usuario(request):
+    user = request.user
+    if request.method == "POST":
+        userEditFormulario = UserEditFormulario(request.POST)   
+        if userEditFormulario.is_valid():
+            data = userEditFormulario.cleaned_data
+
+            user.email = data.get("email")
+            user.password1 = data.get("password1")
+            user.password2 = data.get("password2")
+            user.first_name = data.get("first_name")
+            user.last_name = data.get("last_name")            
+
+            user.save()
+            return render(request, "index.html")
+    else:
+        userEditFormulario = UserEditFormulario(initial = {
+        "email": user.email, 
+        "first_name": user.first_name,
+        "last_name": user.last_name
+        }) 
+    return render(request, "editar_usuario.html", {"userEditFormulario": userEditFormulario, "user": user})

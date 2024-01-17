@@ -12,6 +12,7 @@ from myBankApp.views import (
     editar_cliente,
     login_request,
     registrar,
+    editar_usuario,
  )
 
 urlpatterns = [
@@ -26,4 +27,5 @@ urlpatterns = [
     path("login/", login_request, name = "login"),
     path("registrar/", registrar, name = "registrar"),
     path("logout/", LogoutView.as_view(template_name = "index.html"), name = "logout"),
+    path("editar_usuario/", editar_usuario, name = "editar_usuario"),
 ]

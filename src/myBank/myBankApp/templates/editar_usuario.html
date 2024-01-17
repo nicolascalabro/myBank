@@ -2,11 +2,11 @@
 {% load static %}
 {% block contenidoCambiante %}
 
-<h1>Registrar nuevo usuario</h1>
+<h1>Editar usuario: {{user}}</h1>
 <br>
-<form action="{% url 'registrar' %}" method="post">{% csrf_token %}
+<form action="{% url 'editar_usuario' %}" method="post">{% csrf_token %}
     <table>
-        {{userRegFormulario.as_table}}
+        {{userEditFormulario.as_table}}
     </table>
     <input type="submit" value="Aceptar">
 </form>
