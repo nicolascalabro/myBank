@@ -1,7 +1,11 @@
 {% extends "base_template.html" %}
 {% load static %}
-{% block contenidoCambiante %}
 
+{% block contenidoCambianteTitulo %}
+<h1 class="mb-5">Listar Clientes</h1>
+{% endblock %}
+
+{% block contenidoCambiante %}
 <h1>Lista de clientes</h1>
 <br>    
 {% for c in clientes %}
@@ -14,6 +18,5 @@
         </button>    
 {% endfor %}
 <br>
-<a href="../clientes">Agregar nuevo cliente</a>
-    
+<a href="../clientes">Agregar nuevo cliente</a>    
 {% endblock %}

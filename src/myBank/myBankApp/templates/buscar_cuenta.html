@@ -1,5 +1,10 @@
 {% extends "base_template.html" %}
 {% load static %}
+
+{% block contenidoCambianteTitulo %}
+<h1 class="mb-5">Buscar Cuenta</h1>
+{% endblock %}
+
 {% block contenidoCambiante %}
 <h1>Buscar Cuenta</h1>
 <br>
@@ -7,7 +12,6 @@
     <p>Nro. Cuenta: <input type="number" name="numero_cuenta" placeholder="Ingrese num. cuenta" required></p>    
     <input type="submit" value="Buscar">
 </form>
-
 {%if cuenta %}
     <ul>
         {% for cuenta in cuenta %}
