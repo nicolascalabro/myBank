@@ -1,6 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from myBankApp.models import Cliente, Cuenta, Nomina
-from django.http import HttpResponse
 
 from myBankApp.forms import ClienteFormulario, CuentaFormulario, NominaFormulario, UserRegFormulario, UserEditFormulario
 
@@ -76,7 +75,7 @@ def buscar_cuenta(request):
         cuenta = Cuenta.objects.filter(numero__icontains = numero)   
     return render(request, "buscar_cuenta.html", {"cuenta": cuenta})      
 
-#-------------------CRUD-------------------
+#-------------------------CRUD--------------------------
 @login_required
 def listar_clientes(request):
     clientes = Cliente.objects.all()
@@ -172,3 +171,10 @@ def editar_usuario(request):
         "last_name": user.last_name
         }) 
     return render(request, "editar_usuario.html", {"userEditFormulario": userEditFormulario, "user": user})
+
+#--------------------------------------------------------
+def panel_admin(request):
+    return redirect('admin:index')
+
+def acerca_de(request):
+    return render(request, "acerca_de.html")

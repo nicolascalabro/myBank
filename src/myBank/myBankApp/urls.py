@@ -13,6 +13,8 @@ from myBankApp.views import (
     login_request,
     registrar,
     editar_usuario,
+    panel_admin,
+    acerca_de,    
  )
 
 urlpatterns = [
@@ -28,4 +30,6 @@ urlpatterns = [
     path("registrar/", registrar, name = "registrar"),
     path("logout/", LogoutView.as_view(template_name = "index.html"), name = "logout"),
     path("editar_usuario/", editar_usuario, name = "editar_usuario"),
+    path("panel_admin/", panel_admin, name = "panel_admin"),
+    path("acerca_de/", acerca_de, name = "acerca_de"),
 ]
