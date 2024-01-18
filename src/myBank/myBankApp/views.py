@@ -157,16 +157,17 @@ def editar_usuario(request):
             data = userEditFormulario.cleaned_data
 
             user.email = data.get("email")
-            user.password1 = data.get("password1")
-            user.password2 = data.get("password2")
+            new_password1 = data.get("password1")
+            if new_password1:
+                user.set_password(new_password1)
             user.first_name = data.get("first_name")
             user.last_name = data.get("last_name")            
 
             user.save()
-            return render(request, "index.html")
+            return render(request, "index.html", {"mensaje": "Usuario editado correctamente"})
     else:
         userEditFormulario = UserEditFormulario(initial = {
-        "email": user.email, 
+        "email": user.email,        
         "first_name": user.first_name,
         "last_name": user.last_name
         }) 

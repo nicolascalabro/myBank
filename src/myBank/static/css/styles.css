@@ -10846,6 +10846,7 @@ header.masthead {
   padding-top: 8rem;
   padding-bottom: 8rem;
 }
+
 header.masthead:before {
   content: "";
   position: absolute;
@@ -10854,7 +10855,7 @@ header.masthead:before {
   width: 100%;
   top: 0;
   left: 0;
-  opacity: 0.5;
+  opacity: 0.5;  
 }
 header.masthead h1, header.masthead .h1 {
   font-size: 2rem;
