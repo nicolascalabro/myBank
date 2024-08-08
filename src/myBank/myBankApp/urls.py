@@ -17,6 +17,8 @@ from myBankApp.views import (
     acerca_de,    
  )
 
+
+
 urlpatterns = [
     path("", index, name = "index"),
     path("clientes/", clientes, name = "clientes"), 
