@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block contenidoCambiante %}
-<h1>Agregar empleados a la Nomina</h1>
+<h1 class="mb-5">Agregar</h1>
 <br>
 <form action="{% url 'nomina' %}" method="post">{% csrf_token %}
     <table>
